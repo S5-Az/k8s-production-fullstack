@@ -1,0 +1,4 @@
+#want secret file to get ignore 
+k8s/base/database/mongodb-secret.yml
+
+
