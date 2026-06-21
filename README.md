@@ -1,7 +1,7 @@
-Deploying the full stack app with production level
 
-File structure of this project 
+## Folder structure
 
+```
 k8s-production-fullstack/
 ├── k8s/
 │   ├── base/                # "Blueprints" - The common configurations
@@ -14,4 +14,7 @@ k8s-production-fullstack/
 ├── src/                     # Your actual application code (Backend & Frontend)
 ├── docker/                  # Dockerfiles for building your images
 ├── README.md                # Project documentation (Crucial for teams)
-└── .gitignore               # Important! Exclude secrets/sensitive info 
+└── .gitignore               # Important! Exclude secrets/sensitive info
+```
+
+
