@@ -1,0 +1,50 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mongodb-deployment
+  namespace: production
+
+# telling deployment to replicate pods and track the labeled pods
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-production
+
+#creating Blueprint for pods
+  template:
+    metadata:
+      labels:
+        app: mongodb-production
+
+#creating containers in pods 
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:8.0
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongodb-username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongodb-password
+            - name: MONGO_HOST
+              value: "mongodb-service.production.svc.cluster.local"
+            - name: MONGO_PORT
+              value: "27017"
+            - name: MONGO_DB
+              value: "taskmanager"
+          volumeMounts:
+            - name: mongodb-data
+              mountPath: /data/db
+      volumes:
+        - name: mongodb-data
+          persistentVolumeClaim:
+            claimName: mongodb-pvc 
