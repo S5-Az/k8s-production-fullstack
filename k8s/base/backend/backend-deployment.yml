@@ -13,6 +13,10 @@ spec:
       labels:
         app: backend-production
     spec:
+      initContainers:
+        - name: wait-for-mongodb
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup mongodb-service.production.svc.cluster.local; do echo waiting for mongodb; sleep 2; done;']
       containers:
         - name: backend-app
           image: sujaldevops1/task-manager-backend:v2
