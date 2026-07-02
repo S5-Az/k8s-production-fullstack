@@ -3,11 +3,8 @@ kind: Ingress
 metadata:
   name: project-ingress
   namespace: production 
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
-  ingressClassName: nginx
-  rules:
+  rules:  
   - http:
       paths:
       - path: /api
@@ -16,4 +13,11 @@ spec:
           service:
             name: backend-service
             port:
-              number: 5000 # The port your backend service exposes
+              number: 5000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
