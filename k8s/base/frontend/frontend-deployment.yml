@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend-deployment
+  namespace: production 
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-production
+  template:
+    metadata:
+      labels:
+        app: frontend-production
+    spec:
+      containers:
+      - name: frontend-app
+        image: sujaldevops1/task-manager-frontend:v1
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
